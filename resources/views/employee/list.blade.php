@@ -3,8 +3,8 @@
 @section('content')
 	<div class="card">
 		<h4 class="card-header">
-			Departments
-			<i id="addDepartment" class="btn btn-success fa fa-plus"></i>
+			Employees
+			<i class="btn btn-success fa fa-plus"></i>
 		</h4>
 		<div class="card-body">
 			@if(count($list))
@@ -26,6 +26,4 @@
 				No data
 			@endif
 		</div>
-	</div>
-	@include('layouts.modal_department')
 @endsection
