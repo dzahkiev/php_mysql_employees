@@ -8,16 +8,21 @@
 		</h4>
 		<div class="card-body">
 			@if(count($list))
-				<table class="table table-condensed">
+				<table class="table table-condensed table-hover">
 					<thead>
 						<th>#</th>
 						<th>Name</th>
+						<th></th>
 					</thead>
 					<tbody>
 						@foreach($list as $item)
-							<tr>
+							<tr data-department-id="{{$item->id}}">
 								<td>{{ $loop->iteration }}</td>
-								<td>{{ $item->name }}</td>
+								<td data-name="{{ $item->name }}">{{ $item->name }}</td>
+								<td>
+									<i class="btn btn-primary fa fa-pencil editDepartment"></i>
+									<i class="btn btn-danger fa fa-trash removeDepartment"></i>
+								</td>
 							</tr>
 						@endforeach
 					</tbody>
