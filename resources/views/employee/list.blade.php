@@ -4,7 +4,7 @@
 	<div class="card">
 		<h4 class="card-header">
 			Employees
-			<i class="btn btn-success fa fa-plus"></i>
+			<i id="addEmployee" class="btn btn-success fa fa-plus"></i>
 		</h4>
 		<div class="card-body">
 			@if(count($list))
@@ -26,4 +26,6 @@
 				No data
 			@endif
 		</div>
+		@include('layouts.modal_employee')
+	</div>
 @endsection
