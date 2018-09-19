@@ -60,6 +60,17 @@
     $('#employeeModal').modal('show');
   });
 
+  $('.removeEmployee').click(function () {
+    var id = $(this).closest('tr').data('employee-id');
+    if (id) {
+      $.post(
+        '/employee/' + id + '/remove',
+        {"_token" : $('meta[name="csrf-token"]').attr('content')},
+        window.location.reload()
+      );
+    }
+  });
+
   $('#btnSave').click(function () {
     $.ajax({
       headers: {

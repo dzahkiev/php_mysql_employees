@@ -21,7 +21,7 @@
 					</thead>
 					<tbody>
 						@foreach($list as $item)
-							<tr>
+							<tr data-employee-id="{{ $item->id }}">
 								<td>{{ $loop->iteration }}</td>
 								<td>{{ $item->first_name }}</td>
 								<td>{{ $item->middle_name }}</td>

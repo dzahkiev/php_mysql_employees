@@ -11,6 +11,7 @@ Route::post('/department/{id}/remove', 'DepartmentController@remove');
 Route::get('/employee', 'EmployeeController@list')->name('employee_list');
 Route::any('/employee/add', 'EmployeeController@add');
 Route::get('/employee/{id}/edit', 'EmployeeController@edit');
+Route::post('/employee/{id}/remove', 'EmployeeController@remove');
 
 
 

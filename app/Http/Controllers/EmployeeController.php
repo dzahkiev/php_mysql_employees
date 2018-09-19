@@ -55,4 +55,13 @@ class EmployeeController extends Controller
     	return "employee/edit";
     }
 
+    public function remove (Employee $employee) {
+        // связанные данные из таблиц dapertment_employee и salary будут удалены каскадно
+        $employee->delete();
+        
+        return response()->json(array(
+            'status' => 'success',
+        ));
+    }
+
 }
