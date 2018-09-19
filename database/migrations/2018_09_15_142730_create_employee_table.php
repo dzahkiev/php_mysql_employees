@@ -13,8 +13,8 @@ class CreateEmployeeTable extends Migration
             $table->increments('id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('middle_name');
-            $table->enum('gender', array('male', 'female'));
+            $table->string('middle_name')->nullable();
+            $table->enum('gender', array('male', 'female'))->nullable();
             $table->timestamps();
 
         });

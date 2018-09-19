@@ -11,22 +11,22 @@
         <form id="formEmployee">
           <div class="form-group">
             <label for="first_name" class="col-form-label">First name:</label>
-            <input type="text" class="form-control" name="first_name">
+            <input type="text" class="form-control" name="first_name" placeholder="First name">
           </div>
           <div class="form-group">
             <label for="last_name" class="col-form-label">Last name:</label>
-            <input type="text" class="form-control" name="last_name">
+            <input type="text" class="form-control" name="last_name" placeholder="Last name">
           </div>
           <div class="form-group">
             <label for="middle_name" class="col-form-label">Middle name:</label>
-            <input type="text" class="form-control" name="middle_name">
+            <input type="text" class="form-control" name="middle_name" placeholder="Middle name">
           </div>
           <div class="form-group">
             <label for="gender" class="col-form-label">Gender:</label>
             <select class="form-control" id="gender" name="gender">
-              <option>Choose value</option>
-              <option value="male">М</option>
-              <option value="female">Ж</option>
+              <option></option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
             </select>
           </div>
           <div class="form-group">
@@ -35,13 +35,12 @@
           </div>
           <div class="form-group">
             <label for="departments" class="col-form-label">Departments:</label>
-            <select class="form-control" name="departments" id="departments" multiple="multiple">
-                <option value="cheese">Cheese</option>
-                <option value="tomatoes">Tomatoes</option>
-                <option value="mozarella">Mozzarename lla</option>
-                <option value="mushrooms">Mushrooms</option>
-                <option value="pepperoni">Pepperoni</option>
-                <option value="onions">Onions</option>
+            <select class="form-control" name="departments[]" id="departments" multiple>
+              @foreach($departments as $department)
+                <option value="{{$department->id}}">
+                  {{$department->name}}
+                </option>
+              @endforeach
             </select>
           </div>
         </form>
@@ -83,6 +82,7 @@
         if (data.responseJSON && data.responseJSON.errors) {
           var errors = data.responseJSON.errors;
           for (var key in errors) {
+            console.log(key);
             $('[name="' + key + '"]').addClass('is-invalid');
             $('[name="' + key + '"]').after('<div class="invalid-feedback">' + errors[key] + '</div>');
           }

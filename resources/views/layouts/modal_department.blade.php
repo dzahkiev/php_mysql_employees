@@ -40,7 +40,7 @@
     if (id) {
       $.post(
         '/department/' + id + '/remove',
-        {"_token":$('meta[name="csrf-token"]').attr('content')},
+        {"_token" : $('meta[name="csrf-token"]').attr('content')},
         window.location.reload()
       );
     }
