@@ -18,4 +18,12 @@ class Employee extends Model
                 'department_id'
             );
     }
+
+    public function salary()
+    {
+        return $this->hasOne(
+                'App\Salary',
+                'employee_id'
+            );
+    }
 }

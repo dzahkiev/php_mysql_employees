@@ -27,7 +27,7 @@
 								<td>{{ $item->middle_name }}</td>
 								<td>{{ $item->last_name }}</td>
 								<td>{{ $item->gender }}</td>
-								<td>{{ $item->salary }}</td>
+								<td>{{ $item->salary()->pluck('salary')->first() }}</td>
 								<td>
 									{{ 
 										implode(', ',

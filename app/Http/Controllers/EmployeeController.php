@@ -5,6 +5,7 @@ use Log;
 use Validator;
 use App\Employee;
 use App\Department;
+use App\Salary;
 use App\DepartmentEmployee;
 use Illuminate\Http\Request;
 
@@ -31,6 +32,11 @@ class EmployeeController extends Controller
         $employee
             ->fill($request->only($employee->getFillable()))
             ->save();
+
+        Salary::create(array(
+            'employee_id' => $employee->id,
+            'salary'      => $request->salary
+        ));
 
         foreach ($request->departments as $department_id) {
             DepartmentEmployee::create(array(
