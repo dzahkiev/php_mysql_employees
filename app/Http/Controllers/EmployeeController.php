@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 use Log;
-use Validator;
 use App\Employee;
 use App\Department;
 use App\Salary;
 use App\DepartmentEmployee;
 use Illuminate\Http\Request;
+use App\Http\Requests\AddOrEditEmployeeRequst;
 
 class EmployeeController extends Controller
 {
@@ -18,16 +18,7 @@ class EmployeeController extends Controller
     	]);
     }
 
-    public function add (Request $request) {
-        Validator::make($request->all(), [
-            'first_name'  => 'required|max:255',
-            'last_name'   => 'required|max:255',
-            'middle_name' => 'max:255',
-            'gender'      => 'nullable|in:male,female',
-            'salary'      => 'nullable|numeric',
-            'departments' => 'required|min:1',
-        ])->validate();
-
+    public function add (AddOrEditEmployeeRequst $request) {
         $employee = new Employee;
         $employee
             ->fill($request->only($employee->getFillable()))
@@ -35,7 +26,7 @@ class EmployeeController extends Controller
 
         Salary::create(array(
             'employee_id' => $employee->id,
-            'salary'      => $request->salary
+            'salary'      => empty($request->salary) ? 0 : $request->salary,
         ));
 
         foreach ($request->departments as $department_id) {
@@ -50,9 +41,26 @@ class EmployeeController extends Controller
         ));
     }
 
-     public function edit (Request $request) {
-        dd($request);
-    	return "employee/edit";
+     public function edit (AddOrEditEmployeeRequst $request, Employee $employee) {
+        $employee
+            ->fill($request->only($employee->getFillable()))
+            ->save();
+
+        Salary::where('employee_id', '=', $employee->id)
+            ->update(['salary' => $request->salary]);
+
+        DepartmentEmployee::where('employee_id', '=', $employee->id)->delete();
+
+        foreach ($request->departments as $department_id) {
+            DepartmentEmployee::create(array(
+                'employee_id'   => $employee->id,
+                'department_id' => $department_id
+            ));
+        }
+
+        return response()->json(array(
+            'status' => 'success',
+        ));
     }
 
     public function remove (Employee $employee) {

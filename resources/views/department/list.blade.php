@@ -10,16 +10,16 @@
 			@if(count($list))
 				<table class="table table-condensed table-hover">
 					<thead>
-						<th>#</th>
-						<th>Name</th>
-						<th></th>
+						<th width="20%">#</th>
+						<th width="70%">Name</th>
+						<th width="10%"></th>
 					</thead>
 					<tbody>
 						@foreach($list as $item)
 							<tr data-department-id="{{$item->id}}">
 								<td>{{ $loop->iteration }}</td>
 								<td data-name="{{ $item->name }}">{{ $item->name }}</td>
-								<td>
+								<td >
 									<i class="btn btn-primary fa fa-pencil editDepartment"></i>
 									<i class="btn btn-danger fa fa-trash removeDepartment"></i>
 								</td>

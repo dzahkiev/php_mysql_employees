@@ -1,17 +1,14 @@
 <?php
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
-
+Route::get('/', 'DepartmentEmployeeController@list')->name('index');
 Route::get('/department', 'DepartmentController@list')->name('department_list');
 Route::post('/department/add', 'DepartmentController@add');
-Route::post('/department/{id}/edit', 'DepartmentController@edit');
-Route::post('/department/{id}/remove', 'DepartmentController@remove');
+Route::post('/department/{department}/edit', 'DepartmentController@edit');
+Route::post('/department/{department}/remove', 'DepartmentController@remove');
 Route::get('/employee', 'EmployeeController@list')->name('employee_list');
-Route::any('/employee/add', 'EmployeeController@add');
-Route::get('/employee/{id}/edit', 'EmployeeController@edit');
-Route::post('/employee/{id}/remove', 'EmployeeController@remove');
+Route::post('/employee/add', 'EmployeeController@add');
+Route::post('/employee/{employee}/edit', 'EmployeeController@edit');
+Route::post('/employee/{employee}/remove', 'EmployeeController@remove');
 
 
 

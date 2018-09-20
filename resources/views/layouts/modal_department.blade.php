@@ -8,7 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="formDepartment">
+        <form id="formDepartment" method="post">
           <div class="form-group">
             <label for="name" class="col-form-label">Department Name:</label>
             <input type="text" class="form-control" name="name">
@@ -25,6 +25,7 @@
 <script type="text/javascript">
   $('#addDepartment').click(function () {
     $('#formDepartment').attr('action', '/department/add');
+    $('#departmentModal .modal-title').text('Add department');
     $('#departmentModal').modal('show');
   });
 
@@ -32,6 +33,7 @@
     var tr = $(this).closest('tr');
     $('#formDepartment').attr('action', '/department/' + tr.data('department-id') + '/edit');
     $('input[name="name"]').val(tr.children('[data-name]:first').data('name'));
+    $('#departmentModal .modal-title').text('Edit department');
     $('#departmentModal').modal('show');
   });
 
@@ -47,7 +49,6 @@
   });
 
   $('#btnSave').click(function () {
-    console.log($('#formDepartment').attr('action'));
     $.ajax({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -77,9 +78,12 @@
     });
   });
 
+  $('#formDepartment').submit(function() {
+    return false;
+  });
+
   $('#departmentModal').on('hidden.bs.modal', function (e) {
-    $('#formDepartment input').val('');
-    $('#formDepartment input').removeClass('is-invalid');
+    $('#formDepartment input').val('').removeClass('is-invalid');
     $('#formDepartment .invalid-feedback').remove();
   });
 </script>

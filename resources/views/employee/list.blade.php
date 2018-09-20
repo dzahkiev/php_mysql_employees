@@ -23,16 +23,30 @@
 						@foreach($list as $item)
 							<tr data-employee-id="{{ $item->id }}">
 								<td>{{ $loop->iteration }}</td>
-								<td>{{ $item->first_name }}</td>
-								<td>{{ $item->middle_name }}</td>
-								<td>{{ $item->last_name }}</td>
-								<td>{{ $item->gender }}</td>
-								<td>{{ $item->salary()->pluck('salary')->first() }}</td>
-								<td>
+								<td data-first_name="{{ $item->first_name }}">
+									{{ $item->first_name }}
+								</td>
+								<td data-middle_name="{{ $item->middle_name }}">
+									{{ $item->middle_name }}
+								</td>
+								<td data-last_name="{{ $item->last_name }}">
+									{{ $item->last_name }}
+								</td>
+								<td data-gender="{{ $item->gender }}">
+									{{ ucfirst($item->gender) }}
+								</td>
+								@php 
+									$salary = $item->salary()->pluck('salary')->first()
+								@endphp
+								<td data-salary="{{ $salary }}">{{ $salary }}</td>
+								@php
+									$d = $item->departments->mapWithKeys(function ($i) {
+										return [$i['id'] => $i['name']];
+									});
+								@endphp
+								<td data-departments="{{implode(',', array_keys($d->all()))}}">
 									{{ 
-										implode(', ',
-											$item->departments()->pluck('name')->toArray()
-										)
+										implode(', ', array_values($d->all()))
 									}}
 								</td>
 								<td>

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Log;
 use Validator; 
 use App\Department;
 use Illuminate\Http\Request;
@@ -41,7 +41,7 @@ class DepartmentController extends Controller
         ));
     }
 
-    public function remove (Request $request, Department $department) {
+    public function remove (Department $department) {
         if ($department->employeesCount() === 0) {
             $department->delete();
         }
